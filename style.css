@@ -21,7 +21,6 @@
 
 h2{
   text-align: center;
-  /* color:#444444; */
   margin-bottom: 1.25rem;
 }
 
@@ -31,17 +30,17 @@ h2{
   grid-gap:0.5rem;
 }
 
-.val-1{
+.inp-contain{
   display: flex;
   flex-direction: column;
 }
 
-.val-1 label{
+.inp-contain label{
   color:#aeaeae;
   margin-top: 0.5rem;
 }
 
-.val-1 input{
+.inp-contain input{
   padding:0.5rem;
   width:100%;
   outline: none;
@@ -50,9 +49,10 @@ h2{
   margin-top: 0.25rem;
 }
 
-.val-1 p{
+.inp-contain p{
   font-size: 0.75rem;
   margin-top: 0.25rem;
+  color:red;
 }
 
 .submit-btn{
@@ -68,6 +68,21 @@ h2{
   background:#394249;
   border:1px solid #394249;
   cursor:pointer;
+}
+
+.successful{
+  display: none;
+  justify-content: center;
+  background-color:#c9f6cd;
+  border : 1px solid green;
+  color:green;
+  border-radius: 2px;
+  padding:0.75rem;
+  margin-bottom:0.75rem;
+}
+
+.successful p {
+  font-size: 0.8rem;
 }
 
 @media(max-width:975px){

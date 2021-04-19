@@ -4,66 +4,127 @@ const uEmail = document.querySelector('.u-email');
 const password1 = document.querySelector('.pass1');
 const password2 = document.querySelector('.pass2');
 const submitBtn = document.querySelector('.submit-btn');
-const nameMsg = document.querySelector('.name-msg');
-const emailMsg = document.querySelector('.email-msg');
-const pass1Msg = document.querySelector('.pass1-msg');
-const pass2Msg = document.querySelector('.pass2-msg');
+const successMsg = document.querySelector('.successful');
+let counter = 0 ;
 
-form.addEventListener('submit' , validation);
+function increaseCounter(){
+  counter += 1;
+}
 
-function validation(e){
-  // var userEmail = uEmail.value;
-  // var pass1 = password1.value;
-  // var pass2 = password2.value;
-  // var name = uName.value;
+function checkSuccess(num , text){
+  if(counter == num){
+    form.querySelector("h2").style.display = 'none';
+    form.querySelector("form").style.display = 'none';
+    successMsg.style.display = 'flex';
+    const msg = successMsg.querySelector("p");
+    msg.textContent = text ; 
+  }
+}
+
+function showError(input , msg , color){
+  const container = document.querySelector(`.${input}`);
+  const userInput = container.querySelector("input");
+  const dispMsg = container.querySelector("p");
+ 
+  userInput.style.borderColor = color ; 
+  dispMsg.textContent = msg;  
+
+  counter = 0;
+}
+
+function showSuccess(input , color){
+  const container = document.querySelector(`.${input}`);
+  const userInput = container.querySelector("input");
+  const dispMsg = container.querySelector("p");
+
+  userInput.style.borderColor = color ; 
+  dispMsg.textContent = '';
+}
+
+function checkLength(input , min , max){
+  const container = document.querySelector(`.${input}`);
+  const userInput = container.querySelector("input");
+
+    if(userInput.value.length < min){
+      showError(input , `*${input} must be more than ${min} characters.` , 'red');
+    }else if(userInput.value.length > max){
+      showError(input , `*${input} must be less than ${max} characters.` , 'red');
+    }else{
+      showSuccess(input , 'green');
+    }
+}
+
+function checkPasswords(pass1, pass2){
+  const container = document.querySelector(`.${pass2}`);
+  const pasword2 = container.querySelector("input");
+
+  if(pass1.value !== password2.value){
+    showError(pass2, 'passsowrd donot match' , 'red');
+  }
+}
+
+form.addEventListener('submit' , function(e){
+  e.preventDefault();
 
   if(uName.value === ''){
-    nameMsg.textContent = '*username is required';
-    nameMsg.style.color = 'red';
-    uName.style.borderColor = 'red';
+    showError('username' , '*username is required' , 'red');
   }else{
-    uName.style.borderColor = 'green';
-    nameMsg.textContent = '';
+    showSuccess('username' , 'green');
+    increaseCounter();
   }
 
   if(uEmail.value === ''){
-    emailMsg.textContent = '*email is required';
-    uEmail.style.borderColor = 'red';
-    emailMsg.style.color = 'red';
-  }else{
-    uEmail.style.borderColor = 'green';
-    emailMsg.textContent = '';
+    showError('email' , '*email is required' , 'red');
+  }
+  // else if(!validateEmail(uEmail.value)){
+  //   showError('email' , '*email is not valid' , 'red');
+  // }
+  else{
+    showSuccess('email' , 'green');
+    increaseCounter();
   }
 
   if(password1.value === ''){
-    pass1Msg.textContent = '*password is required';
-    password1.style.borderColor = 'red';
-    pass1Msg.style.color = 'red';
+    showError('password' , '*password is required' , 'red');
   }else{
-    password1.style.borderColor = 'green';
-    pass1Msg.textContent = '';
+    showSuccess('password' , 'green');
+    increaseCounter();
   }
 
   if(password2.value === ''){
-    pass2Msg.textContent = '*re-enter password';
-    password2.style.borderColor = 'red';
-    pass2Msg.style.color = 'red';
+    showError('password1' , '*re-enter password' , 'red');
   }else{
-    password2.style.borderColor = 'green';
-    pass2Msg.textContent = '';
+    showSuccess('password1' , 'green');
+    increaseCounter();
   }
 
+  checkLength('username', 4, 10);
+  checkLength('password', 7, 10);
+  checkPasswords(password1 , 'password1');
+  checkSuccess(4 , 'login successfull');
 
-  e.preventDefault();
-}
+});
 
-// function showError(color , msg){
-//   setMsg.textContent = msg;
-//   inpField.style.borderColor = color;
-//   setMsg.style.color = color;
+
+// function validateEmail(inpEmail){
+
+//     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+//     return re.test(String(inpEmail).toLowerCase());
 // }
 
-// function showSuccess(color){
-//   inpField.style.borderColor = color;
-//   setMsg.textContent = '';
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
