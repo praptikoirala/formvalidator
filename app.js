@@ -59,8 +59,15 @@ function checkPasswords(pass1, pass2){
   const pasword2 = container.querySelector("input");
 
   if(pass1.value !== password2.value){
-    showError(pass2, 'passsowrd donot match' , 'red');
+    showError(pass2, 'passsword donot match' , 'red');
   }
+}
+
+function validateEmail(inpEmail){
+
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  return re.test(String(inpEmail).toLowerCase());
 }
 
 form.addEventListener('submit' , function(e){
@@ -75,11 +82,9 @@ form.addEventListener('submit' , function(e){
 
   if(uEmail.value === ''){
     showError('email' , '*email is required' , 'red');
-  }
-  // else if(!validateEmail(uEmail.value)){
-  //   showError('email' , '*email is not valid' , 'red');
-  // }
-  else{
+  } else if(!validateEmail(uEmail.value)){
+    showError('email' , '*email is not valid' , 'red');
+  }else{
     showSuccess('email' , 'green');
     increaseCounter();
   }
@@ -98,20 +103,15 @@ form.addEventListener('submit' , function(e){
     increaseCounter();
   }
 
-  checkLength('username', 4, 10);
-  checkLength('password', 7, 10);
+  checkLength('username', 4, 20);
+  checkLength('password', 5, 10);
   checkPasswords(password1 , 'password1');
   checkSuccess(4 , 'login successfull');
 
 });
 
 
-// function validateEmail(inpEmail){
 
-//     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-//     return re.test(String(inpEmail).toLowerCase());
-// }
 
 
 
